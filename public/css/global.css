@@ -1,0 +1,50 @@
+:root {
+    --golden-color: #F6CB63;
+    --golden-color-hover: #FFD700; 
+    --green-color: #8bc34a;
+    --green-hover-color: #7cb342;
+    --red-color: #f44336;
+    --red-hover-color: #e57373;
+}
+
+.btn-golden-rounded {
+    background-color: var(--golden-color);
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.5s ease-in-out; 
+    transition-duration: 500ms;
+}
+
+.btn-golden-rounded:hover {
+    background-color: var(--golden-color-hover);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    color: #5a5c69;
+}
+
+.btn-green {
+    background-color: var(--green-color);
+    color: #fff;
+    border-color: var(--green-color);
+}
+
+.btn-green:hover {
+    background-color: var(--green-hover-color);
+    border-color: var(--green-hover-color);
+}
+
+.btn-red {
+    background-color: var(--red-color);
+    color: #fff;
+    border-color: var(--red-color);
+}
+
+.btn-red:hover {
+    background-color: var(--red-hover-color);
+    border-color: var(--red-hover-color);
+    color: #5a5c69;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--golden-color);
+}
