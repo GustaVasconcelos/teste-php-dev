@@ -29,7 +29,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Página inicial</a>
+                <a class="collapse-item" href="{{ route('products.index') }}">Página inicial</a>
             </div>
         </div>
     </li>

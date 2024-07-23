@@ -60,7 +60,6 @@
                 @if(count($subCategories) > 0)
                     @foreach($subCategories as $subCategory)
                     <tr>
-
                         <td class="align-middle">
                             {{ $subCategory->name }}
                         </td>

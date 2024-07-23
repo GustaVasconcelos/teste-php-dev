@@ -32,6 +32,11 @@ class SubCategoryService {
         return $categories;
     }
 
+    public function getByCategoryId(int $id): Collection
+    {
+        return $this->subCategoryRepository->findByCategoryId($id);
+    }
+
     public function getById(int $id): ?SubCategory
     {
         return $this->repositoryHelper->findByIdOrFail($this->subCategoryRepository, 'Sub categoria', $id);

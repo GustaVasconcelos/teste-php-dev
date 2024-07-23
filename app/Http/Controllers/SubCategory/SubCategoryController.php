@@ -10,6 +10,7 @@ use App\Services\Category\CategoryService;
 use App\Services\SubCategory\SubCategoryService;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,12 @@ class SubCategoryController extends Controller
         } catch (Exception $e) {
             return redirect()->route('categories.index')->with('error', 'Erro ao mostrar a página de sub categorias' . $e->getMessage() );
         }
+    }
+
+    public function getByCategory(int $categoryId): JsonResponse
+    {
+        $subCategories = $this->subCategoryService->getByCategoryId($categoryId);
+        return response()->json($subCategories);
     }
 
     public function create(int $categoryId): View|RedirectResponse

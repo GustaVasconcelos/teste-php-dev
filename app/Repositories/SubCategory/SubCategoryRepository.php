@@ -28,4 +28,20 @@ class SubCategoryRepository extends BaseRepository implements SubCategoryReposit
     {
         return $this->model->where('category_id', $id)->get();
     }
+
+    public function belongsToCategory(int $subCategoryId, int $categoryId): bool
+    {
+        return $this->model->where('id', $subCategoryId)->where('category_id', $categoryId)->exists();
+    }
+
+    public function isUniqueInCategory(string $name, int $categoryId, int $excludeId = null): bool
+    {
+        $query = $this->model->where('name', $name)->where('category_id', $categoryId);
+
+        if ($excludeId) {
+            $query->where('id', '<>', $excludeId);
+        }
+
+        return !$query->exists();
+    }
 }
