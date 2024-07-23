@@ -8,15 +8,13 @@ use App\Utils\RepositoryHelper;
 use Illuminate\Database\Eloquent\Collection;
 
 class CategoryService {
-
-    protected $categoryRepository;
-    protected $repositoryHelper;
-
-    public function __construct(CategoryRepository $categoryRepository, RepositoryHelper $repositoryHelper)
-    {
-        $this->categoryRepository = $categoryRepository;
-        $this->repositoryHelper = $repositoryHelper;
-    }
+    
+    public function __construct
+    (
+        protected CategoryRepository $categoryRepository, 
+        protected RepositoryHelper $repositoryHelper
+    )
+    {}
 
     public function getAll(): Collection
     {
