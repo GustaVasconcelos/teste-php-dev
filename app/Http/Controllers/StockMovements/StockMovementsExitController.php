@@ -51,7 +51,7 @@ class StockMovementsExitController extends Controller
 
             return redirect()->route('stockMovements.exit.create')->with('success', 'Novo movimento de estoque cadastrado');
         } catch (InsufficientStockException $e) {
-            return redirect()->route('stockMovements.exit.create')->with('error', $e->getMessage());
+            return redirect()->route('stockMovements.exit.create')->with('warning', $e->getMessage());
         } catch (Exception $e) {
             return redirect()->route('stockMovements.exit.create')->with('error', 'Erro ao mostrar página de cadastro de movimento de estoque');
         }

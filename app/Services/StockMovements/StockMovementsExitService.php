@@ -43,27 +43,32 @@ class StockMovementsExitService {
 
     public function create(array $data): void
     {
-        DB::beginTransaction();
+        $erros = [];
+        $success = [];
+        
+        foreach ($data as $entry) {
+            $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
+    
+            if ($product->stock < $entry['quantity']) {
+                $erros[] = $product->name;
 
-        try {
-            foreach ($data as $entry) {
-                $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
-        
-                if ($product->stock < $entry['quantity']) {
-                    throw new InsufficientStockException('Estoque insuficiente para o produto: ' . $product->name);
-                }
-        
-                $entry['previous_quantity'] = $product->stock;
-                $newStock = $product->stock - $entry['quantity'];
-        
-                $this->productRepository->update($product->id, ['stock' => $newStock]);
-        
-                $this->stockMovementsExitRepository->create($entry);
-            }
+                continue;
+            } 
+    
+            $entry['previous_quantity'] = $product->stock;
+            $newStock = $product->stock - $entry['quantity'];
+    
+            $this->productRepository->update($product->id, ['stock' => $newStock]);
+    
+            $this->stockMovementsExitRepository->create($entry);
 
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-        } 
+            $success[] = $product->name;
+
+        }
+
+        if (!empty($erros)) {
+            throw new InsufficientStockException('Estoque insuficiente para os seguintes produtos: ' . implode(', ', $erros));
+        }
+
     }
 }
