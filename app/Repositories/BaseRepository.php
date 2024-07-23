@@ -17,7 +17,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getAll(): Collection
     {
-        return $this->model->all(); 
+        return $this->model->all();
     }
 
     public function create(array $data): Model
@@ -32,11 +32,23 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function update(int $id, array $data): bool
     {
-        return $this->model->update($data);
+        $model = $this->findById($id);
+
+        if (!$model) {
+            return false ;
+        }
+
+        return $model->update($data);
     }
 
     public function delete(int $id): bool
     {
-        return $this->model->delete($id);
+        $model = $this->findById($id);
+
+        if ($model) {
+            return $model->delete();
+        }
+
+        return false;
     }
 }
