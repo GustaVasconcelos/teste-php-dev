@@ -19,6 +19,11 @@ class StockMovementsExitService {
     )
     {}
 
+    public function getAll(): Collection
+    {
+        return $this->stockMovementsExitRepository->getAll();
+    }
+
     public function getAllWithFilters(array $data): Collection
     {
         $filters = [
@@ -37,20 +42,21 @@ class StockMovementsExitService {
         return $stockMovements;
     }
 
-    public function create(array $data): StockMovementExit
+    public function create(array $data): void
     {
-        $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $data['product_id']);
-
-        if ($product->stock < $data['quantity']) {
-            throw new InsufficientStockException('Estoque insuficiente');
-        }
-
-        $data['previous_quantity'] = $product->stock;
-        $newStock = $product->stock - $data['quantity'];
-
-        $this->productRepository->update($product->id, ['stock' => $newStock]);
-        
-        return $this->stockMovementsExitRepository->create($data);
-    }
+        foreach ($data as $entry) {
+            $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
     
+            if ($product->stock < $entry['quantity']) {
+                throw new InsufficientStockException('Estoque insuficiente para o produto: ' . $product->name);
+            }
+    
+            $entry['previous_quantity'] = $product->stock;
+            $newStock = $product->stock - $entry['quantity'];
+    
+            $this->productRepository->update($product->id, ['stock' => $newStock]);
+    
+            $this->stockMovementsExitRepository->create($entry);
+        }
+    }
 }

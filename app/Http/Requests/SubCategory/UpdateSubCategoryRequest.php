@@ -34,7 +34,6 @@ class UpdateSubCategoryRequest extends FormRequest
                     }
                 },
             ],
-            'category_id' => 'required|exists:categories,id',
         ];
     }
 
@@ -43,8 +42,6 @@ class UpdateSubCategoryRequest extends FormRequest
         return [
             'name.required' => 'O nome da subcategoria é obrigatório.',
             'name.max' => 'O nome da subcategoria não pode exceder 255 caracteres.',
-            'category_id.required' => 'A categoria é obrigatória.',
-            'category_id.exists' => 'A categoria selecionada não existe.',
         ];
     }
 }

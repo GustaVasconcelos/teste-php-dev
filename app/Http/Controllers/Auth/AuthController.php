@@ -39,7 +39,7 @@ class AuthController extends Controller
 
             return redirect()->route('home')->with('success', 'Autenticação feita com sucesso');
         } catch (AuthenticationException $e) {
-            return redirect()->route('login')->with('error', 'Erro ao efetuar login: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', $e->getMessage());
         } catch (Exception $e) {
             return redirect()->route('login')->with('error', 'Erro inesperado: ' . $e->getMessage());
         }

@@ -47,7 +47,7 @@ class StockMovementsExitController extends Controller
     public function store(StoreExitStockMovementRequest $request): RedirectResponse
     {
         try {
-            $this->stockMovementsExitService->create($request->validated());
+            $this->stockMovementsExitService->create($request->validated()['entries']);
 
             return redirect()->route('stockMovements.exit.create')->with('success', 'Novo movimento de estoque cadastrado');
         } catch (InsufficientStockException $e) {

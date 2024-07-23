@@ -99,11 +99,11 @@
                                 Movimentos de estoque
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{-- @if ($stockMovements->count() == 0)
+                                @if ($stockMovements == 0)
                                     Nenhum movimento de estoque cadastrado
                                 @else
-                                    {{ $stockMovements->count()}}
-                                @endif --}}
+                                    {{ $stockMovements }}
+                                @endif
                             </div>
                         </div>
                         <div class="col-auto">

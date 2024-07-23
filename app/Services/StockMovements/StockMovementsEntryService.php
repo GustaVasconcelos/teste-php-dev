@@ -18,6 +18,11 @@ class StockMovementsEntryService {
     )
     {}
 
+    public function getAll(): Collection
+    {
+        return $this->stockMovementsEntryRepository->getAll();
+    }
+
     public function getAllWithFilters(array $data): Collection
     {
         $filters = [
@@ -36,16 +41,18 @@ class StockMovementsEntryService {
         return $stockMovements;
     }
 
-    public function create(array $data): StockMovementEntry
+    public function create(array $data): void
     {
-        $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $data['product_id']);
-
-        $data['previous_quantity'] = $product->stock;
-        $newStock = $data['quantity'] + $product->stock;
-        
-        $this->productRepository->update($product->id, ['stock' => $newStock]);
-
-        return $this->stockMovementsEntryRepository->create($data);
+        foreach ($data as $entry) {
+            $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
+    
+            $entry['previous_quantity'] = $product->stock;
+            $newStock = $entry['quantity'] + $product->stock;
+    
+            $this->productRepository->update($product->id, ['stock' => $newStock]);
+    
+            $this->stockMovementsEntryRepository->create($entry);
+        }
     }
     
 }

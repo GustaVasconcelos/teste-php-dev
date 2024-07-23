@@ -46,7 +46,7 @@ class StockMovementsEntryController extends Controller
     public function store(StoreEntryStockMovementRequest $request): RedirectResponse
     {
         try {
-            $this->stockMovementsEntryService->create($request->validated());
+            $this->stockMovementsEntryService->create($request->validated()['entries']);
 
             return redirect()->route('stockMovements.entry.create')->with('success', 'Novo movimento de estoque cadastrado');
         }  catch (Exception $e) {
