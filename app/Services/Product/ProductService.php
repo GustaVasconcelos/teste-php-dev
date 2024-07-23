@@ -35,7 +35,6 @@ class ProductService {
         foreach ($filters as $field => $method) {
             if (!empty($data[$field])) {
                 $products = $this->productRepository->$method($data[$field]);
-                dd($products);
             }
         }
 
