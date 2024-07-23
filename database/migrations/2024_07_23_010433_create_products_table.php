@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('set null');
+            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('set null');
         });
     }
 
