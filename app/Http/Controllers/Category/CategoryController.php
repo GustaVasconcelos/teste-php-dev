@@ -14,12 +14,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller 
 {
-    protected CategoryService $categoryService;
+   
 
-    public function __construct(CategoryService $categoryService)
-    {
-        $this->categoryService = $categoryService;
-    }
+    public function __construct
+    (
+        protected CategoryService $categoryService;
+    )
+    {}
 
     public function index(Request $request): View|RedirectResponse
     {
