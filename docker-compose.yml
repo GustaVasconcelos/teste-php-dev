@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  testephp-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: testephp-app
+    entrypoint: sh .docker/entrypoint.sh
+    depends_on:
+      testephp-db:
+        condition: service_healthy
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - testephp-network
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: testephp-db
+      DB_PORT: 3306
+      DB_DATABASE: testephp
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+  testephp-db:
+    image: mysql:5.7
+    container_name: testephp-db
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - db_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: testephp
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - testephp-network
+
+networks:
+  testephp-network:
+    driver: bridge
+
+volumes:
+  db_volume: {}
