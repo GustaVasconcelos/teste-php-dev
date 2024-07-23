@@ -1,66 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto Laravel com Docker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto utiliza Laravel e Docker para criar um ambiente de desenvolvimento isolado e consistente. Inclui configurações para o PHP, MariaDB e os comandos básicos para iniciar o ambiente de desenvolvimento.
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de começar, certifique-se de ter os seguintes softwares instalados:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Caso você não tenha o Docker instalado, você pode configurar o projeto manualmente. As versões usadas são:
+- **PHP**: 8.2
+- **Laravel**: 11.x
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Configuração do Ambiente
 
-## Learning Laravel
+### Usando Docker
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Clone o Repositório**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```sh
+    git clone https://github.com/GustaVasconcelos/teste-php-dev.git
+    cd teste-php-dev
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Construa e Inicie os Contêineres**
 
-## Laravel Sponsors
+    Use o Docker Compose para construir a imagem e iniciar os serviços definidos no `docker-compose.yml`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```sh
+    docker-compose up -d --build
+    ```
 
-### Premium Partners
+    Isso criará e iniciará dois contêineres: um para o PHP e outro para o banco de dados MySQL.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Verifique o Status dos Contêineres**
 
-## Contributing
+    Verifique se os contêineres estão rodando corretamente.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```sh
+    docker-compose ps
+    ```
 
-## Code of Conduct
+4. **Acesse o Aplicativo**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    O aplicativo estará acessível em `http://localhost:8080`. Use o navegador para visualizar a aplicação Laravel.
 
-## Security Vulnerabilities
+### Configuração Manual (Sem Docker)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Caso você não possa usar Docker, você pode configurar o ambiente manualmente. Aqui estão os passos:
 
-## License
+1. **Instale o PHP 8.2**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Certifique-se de ter o PHP 8.2 instalado. Você pode verificar a versão do PHP com o comando:
+
+    ```sh
+    php -v
+    ```
+
+2. **Instale o Composer**
+
+    O Composer é necessário para gerenciar as dependências do Laravel. Você pode baixá-lo e instalá-lo seguindo as instruções em [getcomposer.org](https://getcomposer.org/).
+
+3. **Clone o Repositório**
+
+    ```sh
+    git clone https://github.com/GustaVasconcelos/teste-php-dev.git
+    cd teste-php-dev
+    ```
+
+4. **Copie o Arquivo de Configuração do Ambiente**
+
+    Renomeie o arquivo de exemplo `.env.example` para `.env` e ajuste as configurações conforme necessário.
+
+    ```sh
+    cp .env.example .env
+    ```
+
+5. **Instale as Dependências do Composer**
+
+    ```sh
+    composer install
+    ```
+
+6. **Configure o Banco de Dados**
+
+    Configure o banco de dados no arquivo `.env` conforme suas necessidades. As configurações padrão são para MySQL.
+
+7. **Gere a Chave da Aplicação**
+
+    ```sh
+    php artisan key:generate
+    ```
+
+8. **Aplique as Migrations**
+
+    ```sh
+    php artisan migrate
+    ```
+
+9. **Inicie o Servidor**
+
+    ```sh
+    php artisan serve --host=0.0.0.0 --port=8000
+    ```
+
+    O aplicativo estará acessível em `http://localhost:8000`. Use o navegador para visualizar a aplicação Laravel.
+
+## Estrutura dos Arquivos
+
+- `Dockerfile`: Define a imagem do PHP e configura o ambiente.
+- `docker-compose.yml`: Define e configura os serviços Docker (PHP e MariaDB).
+- `.docker/entrypoint.sh`: Script de inicialização que prepara o ambiente, gera a chave da aplicação e aplica as migrations.
+- `.env`: Configuração do ambiente Laravel. Deve ser ajustado para refletir suas configurações locais.
+
+## Comandos Úteis
+
+- **Construir e Iniciar os Contêineres**
+
+    ```sh
+    docker-compose up -d --build
+    ```
+
+- **Parar e Remover os Contêineres**
+
+    ```sh
+    docker-compose down
+    ```
+
+- **Verificar Logs**
+
+    ```sh
+    docker-compose logs -f
+    ```
+
+- **Acessar o Contêiner PHP**
+
+    ```sh
+    docker-compose exec testephp-app bash
+    ```
+
+## Configuração do Banco de Dados
+
+A configuração do banco de dados é feita no arquivo `.env`. As variáveis de ambiente configuram a conexão com o banco de dados MariaDB.
