@@ -2,13 +2,12 @@
 
 namespace App\Services\StockMovements;
 
-use App\Models\StockMovementExit;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\StockMovements\StockMovementsExitRepository;
 use App\Utils\RepositoryHelper;
 use Illuminate\Database\Eloquent\Collection;
 use App\Exceptions\InsufficientStockException;
-
+use Illuminate\Support\Facades\DB;
 class StockMovementsExitService {
     
     public function __construct
@@ -44,19 +43,27 @@ class StockMovementsExitService {
 
     public function create(array $data): void
     {
-        foreach ($data as $entry) {
-            $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
-    
-            if ($product->stock < $entry['quantity']) {
-                throw new InsufficientStockException('Estoque insuficiente para o produto: ' . $product->name);
+        DB::beginTransaction();
+
+        try {
+            foreach ($data as $entry) {
+                $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
+        
+                if ($product->stock < $entry['quantity']) {
+                    throw new InsufficientStockException('Estoque insuficiente para o produto: ' . $product->name);
+                }
+        
+                $entry['previous_quantity'] = $product->stock;
+                $newStock = $product->stock - $entry['quantity'];
+        
+                $this->productRepository->update($product->id, ['stock' => $newStock]);
+        
+                $this->stockMovementsExitRepository->create($entry);
             }
-    
-            $entry['previous_quantity'] = $product->stock;
-            $newStock = $product->stock - $entry['quantity'];
-    
-            $this->productRepository->update($product->id, ['stock' => $newStock]);
-    
-            $this->stockMovementsExitRepository->create($entry);
-        }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        } 
     }
 }

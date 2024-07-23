@@ -7,7 +7,7 @@ use App\Repositories\Product\ProductRepository;
 use App\Repositories\StockMovements\StockMovementsEntryRepository;
 use App\Utils\RepositoryHelper;
 use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Support\Facades\DB;
 class StockMovementsEntryService {
     
     public function __construct
@@ -43,16 +43,28 @@ class StockMovementsEntryService {
 
     public function create(array $data): void
     {
-        foreach ($data as $entry) {
-            $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
-    
-            $entry['previous_quantity'] = $product->stock;
-            $newStock = $entry['quantity'] + $product->stock;
-    
-            $this->productRepository->update($product->id, ['stock' => $newStock]);
-    
-            $this->stockMovementsEntryRepository->create($entry);
-        }
+        DB::beginTransaction();
+
+        try {
+            foreach ($data as $entry) {
+                $product = $this->repositoryHelper->findByIdOrFail($this->productRepository, 'Produto', $entry['product_id']);
+        
+                $newStock = $this->calculateNewStock($product->stock, $entry['quantity']);
+        
+                $this->productRepository->update($product->id, ['stock' => $newStock]);
+        
+                $this->stockMovementsEntryRepository->create($entry);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        } 
+    }
+
+    protected function calculateNewStock(int $currentStock, int $quantity): int
+    {
+        return $currentStock + $quantity;
     }
     
 }
