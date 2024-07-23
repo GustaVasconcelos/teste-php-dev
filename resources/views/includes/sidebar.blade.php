@@ -17,23 +17,19 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Informações dos Usuários
+        Informações dos Produtos
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-user-friends"></i>
-            <span>Usuários</span>
+            <i class="fas fa-box"></i>
+            <span>Produtos</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="Usuarios/tables.html">Administradores</a>
-                <a class="collapse-item" href="Usuarios/tables_user.html">Usuário</a>
-                <a class="collapse-item" href="Usuarios/tables_conquistas.html">Conquistas Usuário</a>
-                <a class="collapse-item" href="Usuarios/contas_bancarias.html">Contas Bancarias</a>
-                <a class="collapse-item" href="Usuarios/tables_empresas.html">Empresas</a>
+                <a class="collapse-item" href="Usuarios/tables.html">Página inicial</a>
             </div>
         </div>
     </li>

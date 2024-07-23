@@ -6,7 +6,8 @@
 @stop
 
 @section('content')
-    oi
+    @include('includes.alerts')
+
 @stop
 
 @section('page-specific-scripts')

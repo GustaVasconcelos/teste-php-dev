@@ -21,7 +21,7 @@
 
                                 @include('includes.alerts')
 
-                                <form method="POST" class="user">
+                                <form action="" method="POST" class="user">
                                     @csrf
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail"
@@ -47,6 +47,10 @@
                                     </button>
                                     <hr>
                                 </form>
+
+                                <div class="text-center">
+                                    <a class="small" href="{{ route('create') }}">Não possui uma conta? Faça o cadastro!</a>
+                                </div>
                             </div>
                         </div>
                     </div>
