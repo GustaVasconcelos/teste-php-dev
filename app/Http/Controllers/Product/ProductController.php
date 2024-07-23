@@ -35,7 +35,7 @@ class ProductController extends Controller
             $categories = $this->categoryService->getAll();
             $subCategories = $this->subCategoryService->getAll();
 
-            return view('pages.products.index', compact('products', 'categories', 'subCategories'));
+            return View('pages.products.index', compact('products', 'categories', 'subCategories'));
         } catch (Exception $e) {
             return redirect()->route('home')->with('error', 'Erro ao mostrar a página de produtos'. $e->getMessage());
         }

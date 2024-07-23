@@ -35,10 +35,14 @@
             <div class="col-6 mb-3">
                 <label for="category-id" class="form-label text-dark font-weight-bold mt-2">Categoria:</label>
                 <select id="category-id" class="form-control" name="category_id">
-                    <option value="">Selecione uma categoria</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
+                    @if(count($categories) > 0)
+                        <option value="">Selecione uma categoria</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="">É necessário cadastrar categorias</option>
+                    @endif
                 </select>
             </div>
 

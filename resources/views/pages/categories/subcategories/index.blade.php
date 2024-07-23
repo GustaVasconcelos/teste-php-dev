@@ -20,6 +20,7 @@
             <a href="{{ route('categories.subcategories.create', $categoryId) }}" class="btn btn-golden-rounded fw-semibold">
                 Nova sub categoria
             </a>
+            <a href="{{ route('categories.index') }}" class="btn btn-golden-rounded fw-semibold mx-2">Voltar</a>
         </div>
     </div>
 
