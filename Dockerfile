@@ -34,8 +34,7 @@ RUN composer install --no-scripts --no-autoloader
 
 # Run Composer tasks and Laravel setup commands
 RUN mkdir -p storage/framework/{sessions,views,cache} storage/app/public storage/logs \
-    && composer dump-autoload --optimize \
-    && php artisan key:generate
+    && composer dump-autoload --optimize
 
 # Expose port 80
 EXPOSE 80

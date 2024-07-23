@@ -1,7 +1,9 @@
 rm .env
 cp .env.example .env
 
-sleep 5
+composer install
+
+sleep 3
 
 php artisan key:generate
 php artisan migrate
