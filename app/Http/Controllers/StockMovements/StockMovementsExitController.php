@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Exception;
 use App\Exceptions\InsufficientStockException;
 use App\Http\Requests\StockMovements\ExitRequest\StoreExitStockMovementRequest;
+use App\Http\Requests\StockMovements\FilterStockRequest;
 use App\Services\Product\ProductService;
 
 class StockMovementsExitController extends Controller 
@@ -21,14 +22,14 @@ class StockMovementsExitController extends Controller
     )
     {}
 
-    public function index(): View|RedirectResponse
+    public function index(FilterStockRequest $request): View|RedirectResponse
     {
         try {
-            $stockMovements = $this->stockMovementsExitService->getAll();
+            $stockMovements = $this->stockMovementsExitService->getAllWithFilters($request->validated());
             
             return View('pages.stockMovements.exit.index', compact('stockMovements'));
         } catch (Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao mostrar página de movimento de estoque' . $e->getMessage());
+            return redirect()->route('home')->with('error', 'Erro ao mostrar página de movimento de estoque' );
         }
     } 
     
@@ -39,7 +40,7 @@ class StockMovementsExitController extends Controller
 
             return View('pages.stockMovements.exit.create', compact('products'));
         }  catch (Exception $e) {
-            return redirect()->route('stockMovements.exit.index')->with('error', 'Erro ao mostrar página de cadastro de movimento de estoque'. $e->getMessage());
+            return redirect()->route('stockMovements.exit.index')->with('error', 'Erro ao mostrar página de cadastro de movimento de estoque');
         }
     }
 
@@ -52,7 +53,7 @@ class StockMovementsExitController extends Controller
         } catch (InsufficientStockException $e) {
             return redirect()->route('stockMovements.exit.create')->with('error', $e->getMessage());
         } catch (Exception $e) {
-            return redirect()->route('stockMovements.exit.create')->with('error', 'Erro ao mostrar página de cadastro de movimento de estoque' . $e->getMessage());
+            return redirect()->route('stockMovements.exit.create')->with('error', 'Erro ao mostrar página de cadastro de movimento de estoque');
         }
     }
 }

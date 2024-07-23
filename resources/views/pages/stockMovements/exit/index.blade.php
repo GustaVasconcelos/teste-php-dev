@@ -27,13 +27,14 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="product-name" class="form-label text-dark font-weight-bold">Nome do Produto:</label>
-                <input type="text" id="product-name" class="form-control" name="product_name" placeholder="Digite o nome do produto">
+                <input type="text" id="product-name" class="form-control" name="productName" placeholder="Digite o nome do produto">
             </div>
             <div class="col-6 mb-3">
                 <label for="date" class="form-label text-dark font-weight-bold">Data:</label>
                 <input type="date" id="date" class="form-control" name="date">
             </div>
         </div>
+        
         <div class="d-flex flex-wrap gap-2 mt-2">
             <button type="submit" class="btn btn-golden-rounded fw-semibold">
                 Filtrar

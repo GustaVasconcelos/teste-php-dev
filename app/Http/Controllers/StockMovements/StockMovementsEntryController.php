@@ -4,6 +4,7 @@ namespace App\Http\Controllers\StockMovements;
 
 use App\Services\StockMovements\StockMovementsEntryService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StockMovements\FilterStockRequest;
 use App\Http\Requests\StockMovements\Entry\StoreEntryStockMovementRequest;
 use App\Services\Product\ProductService;
 use Illuminate\Contracts\View\View;
@@ -20,10 +21,10 @@ class StockMovementsEntryController extends Controller
     )
     {}
 
-    public function index(): View|RedirectResponse
+    public function index(FilterStockRequest $request): View|RedirectResponse
     {
         try {
-            $stockMovements = $this->stockMovementsEntryService->getAll();
+            $stockMovements = $this->stockMovementsEntryService->getAllWithFilters($request->validated());
             
             return View('pages.stockMovements.entry.index', compact('stockMovements'));
         } catch (Exception $e) {

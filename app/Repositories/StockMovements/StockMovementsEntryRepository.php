@@ -21,4 +21,21 @@ class StockMovementsEntryRepository extends BaseRepository implements StockMovem
     {
         return $this->model->orderBy('created_at', 'desc')->get();
     }
+
+    public function getByDate(string $date): Collection
+    {
+        return $this->model
+            ->whereDate('created_at', $date)
+            ->orderBy('created_at', 'desc')
+            ->get();    
+    }
+
+    public function getByProductName(string $productName): Collection
+    {
+        return $this->model
+            ->join('products', 'stock_movements_entries.product_id', '=', 'products.id')
+            ->where('products.name', 'like', $productName . '%')
+            ->select('stock_movements_entries.*')
+            ->get();
+    }
 }

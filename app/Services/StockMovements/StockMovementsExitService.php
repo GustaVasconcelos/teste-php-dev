@@ -19,9 +19,22 @@ class StockMovementsExitService {
     )
     {}
 
-    public function getAll(): Collection
+    public function getAllWithFilters(array $data): Collection
     {
-        return $this->stockMovementsExitRepository->getAllOrderedByCreationDate();
+        $filters = [
+            'productName' => 'getByProductName',
+            'date' => 'getByDate',
+        ];
+
+        $stockMovements = $this->stockMovementsExitRepository->getAllOrderedByCreationDate();
+
+        foreach ($filters as $field => $method) {
+            if (!empty($data[$field])) {
+                $stockMovements = $this->stockMovementsExitRepository->$method($data[$field]);
+            }
+        }
+
+        return $stockMovements;
     }
 
     public function create(array $data): StockMovementExit
