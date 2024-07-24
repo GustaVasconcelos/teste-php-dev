@@ -34,6 +34,7 @@ class HomeController extends Controller
             $stockMovementsEntry = $this->stockMovementsEntryService->getAll();
             $stockMovementsExit = $this->stockMovementsExitService->getAll();
             $stockMovements = count($stockMovementsEntry) + count($stockMovementsExit);
+            
             return View('pages.home', compact('subCategories', 'categories', 'products', 'stockMovements'));
         } catch (Exception $e) {
             return redirect()->route('showLoginForm')->with('error', 'Erro ao mostrar a página inicial' );

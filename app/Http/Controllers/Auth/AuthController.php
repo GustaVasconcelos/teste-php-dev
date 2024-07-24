@@ -41,7 +41,7 @@ class AuthController extends Controller
         } catch (AuthenticationException $e) {
             return redirect()->route('login')->with('error', $e->getMessage());
         } catch (Exception $e) {
-            return redirect()->route('login')->with('error', 'Erro inesperado: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', 'Erro inesperado');
         }
     }
 

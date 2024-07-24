@@ -23,7 +23,7 @@ class UserController extends Controller
         try {
             return view('pages.auth.register');
         } catch (Exception $e) {
-            return redirect()->route('dashboard')->with('error', 'Erro ao mostrar a página de cadastro!');
+            return redirect()->route('showLoginForm')->with('error', 'Erro ao mostrar a página de cadastro!');
         }
     }
 

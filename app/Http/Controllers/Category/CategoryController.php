@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
             return view('pages.categories.index', compact('categories'));
         } catch (Exception $e) {
-            return redirect()->route('dashboard')->with('error', 'Erro ao mostrar a página de categorias!');
+            return redirect()->route('home')->with('error', 'Erro ao mostrar a página de categorias!');
         }
     }
 

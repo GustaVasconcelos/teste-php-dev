@@ -32,7 +32,7 @@ class SubCategoryController extends Controller
             
             return view('pages.categories.subcategories.index', compact('subCategories', 'categoryId'));
         } catch (Exception $e) {
-            return redirect()->route('categories.index')->with('error', 'Erro ao mostrar a página de sub categorias' . $e->getMessage() );
+            return redirect()->route('categories.index')->with('error', 'Erro ao mostrar a página de sub categorias');
         }
     }
 
@@ -47,7 +47,7 @@ class SubCategoryController extends Controller
         try {            
             return view('pages.categories.subcategories.create', compact('categoryId'));
         } catch (Exception $e) {
-            return redirect()->route('categories.subcategories.index', $categoryId)->with('error', 'Erro ao mostrar página de cadastrar sub categorias', $e->getMessage());
+            return redirect()->route('categories.subcategories.index', $categoryId)->with('error', 'Erro ao mostrar página de cadastrar sub categorias');
         }
     }
 

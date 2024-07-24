@@ -40,7 +40,7 @@ class ProductController extends Controller
 
             return View('pages.products.index', compact('products', 'categories', 'subCategories'));
         } catch (Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao mostrar a página de produtos'. $e->getMessage());
+            return redirect()->route('home')->with('error', 'Erro ao mostrar a página de produtos');
         }
     }
 

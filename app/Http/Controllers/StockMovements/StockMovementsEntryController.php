@@ -28,7 +28,7 @@ class StockMovementsEntryController extends Controller
             
             return View('pages.stockMovements.entry.index', compact('stockMovements'));
         } catch (Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao mostrar página de movimento de estoque' . $e->getMessage());
+            return redirect()->route('home')->with('error', 'Erro ao mostrar página de movimento de estoque');
         }
     } 
     
