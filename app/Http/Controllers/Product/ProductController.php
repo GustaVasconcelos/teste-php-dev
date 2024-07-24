@@ -9,6 +9,8 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Services\Category\CategoryService;
 use App\Services\Product\ProductService;
+use App\Services\StockMovements\StockMovementsEntryService;
+use App\Services\StockMovements\StockMovementsExitService;
 use App\Services\SubCategory\SubCategoryService;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -23,7 +25,9 @@ class ProductController extends Controller
     (
         protected ProductService $productService,
         protected CategoryService $categoryService,
-        protected SubCategoryService $subCategoryService
+        protected SubCategoryService $subCategoryService,
+        protected StockMovementsEntryService $stockMovementsEntryService,
+        protected StockMovementsExitService $stockMovementsExitService
     )
     {}
 
@@ -40,6 +44,29 @@ class ProductController extends Controller
         }
     }
 
+    public function showProductStockMovementsEntry(int $id): View|RedirectResponse
+    {
+        try {
+            $stockMovements = $this->stockMovementsEntryService->getStockMovementsByProductId($id);
+
+            return View('pages.products.stockMovements.entry.index', compact('stockMovements'));
+        } catch (Exception $e) {  
+            return redirect()->route('products.index')->with('error', 'Erro ao mostrar página de movimento de estoque do produto');
+        }
+    }
+
+    public function showProductStockMovementsExit(int $id): View|RedirectResponse
+    {
+        try {
+            $stockMovements = $this->stockMovementsExitService->getStockMovementsByProductId($id);
+
+            return View('pages.products.stockMovements.exit.index', compact('stockMovements'));
+        } catch (Exception $e) {  
+            return redirect()->route('products.index')->with('error', 'Erro ao mostrar página de movimento de estoque do produto');
+        }
+    }
+    
+    
     public function create(): View|RedirectResponse
     {
         try {            
@@ -48,7 +75,7 @@ class ProductController extends Controller
 
             return view('pages.products.create', compact('categories', 'subCategories'));
         } catch (Exception $e) {
-            return redirect()->route('categories.subcategories.index')->with('error', 'Erro ao mostrar página de cadastrar produtos');
+            return redirect()->route('products.index')->with('error', 'Erro ao mostrar página de cadastrar produtos');
         }
     }
 

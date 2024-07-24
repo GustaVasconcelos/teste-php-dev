@@ -90,6 +90,13 @@
                         <td class="align-middle">{{ $product->user->name }}</td>
                         <td class="align-middle">{{ $product->stock }}</td>
                         <td class="align-middle">
+                            <a href="{{ route('products.stockMovements.showProductStockMovementsEntry', $product->id) }}" class="btn btn-sm btn-success btn-tooltip" title="Movimentação de entrada" data-toggle="tooltip">
+                                <i class="fas fa-arrow-down"></i>
+                            </a>
+                        
+                            <a href="{{ route('products.stockMovements.showProductStockMovementsExit', $product->id) }}" class="btn btn-sm btn-warning btn-tooltip" title="Movimentação de saída" data-toggle="tooltip">
+                                <i class="fas fa-arrow-up"></i>
+                            </a>
                             <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary btn-tooltip" title="Editar produto" data-toggle="tooltip">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>

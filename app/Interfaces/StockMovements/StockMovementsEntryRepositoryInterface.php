@@ -12,4 +12,6 @@ interface StockMovementsEntryRepositoryInterface extends BaseRepositoryInterface
     public function getByDate(string $date): Collection;
 
     public function getByProductName(string $productName): Collection;
+
+    public function getByProductId(int $id): Collection;
 }

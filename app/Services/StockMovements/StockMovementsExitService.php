@@ -23,6 +23,11 @@ class StockMovementsExitService {
         return $this->stockMovementsExitRepository->getAll();
     }
 
+    public function getStockMovementsByProductId(int $id): Collection
+    {
+        return $this->stockMovementsExitRepository->getByProductId($id);
+    }
+
     public function getAllWithFilters(array $data): Collection
     {
         $filters = [

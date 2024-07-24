@@ -2,12 +2,12 @@
 
 namespace App\Services\StockMovements;
 
-use App\Models\StockMovementEntry;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\StockMovements\StockMovementsEntryRepository;
 use App\Utils\RepositoryHelper;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+
 class StockMovementsEntryService {
     
     public function __construct
@@ -21,6 +21,11 @@ class StockMovementsEntryService {
     public function getAll(): Collection
     {
         return $this->stockMovementsEntryRepository->getAll();
+    }
+
+    public function getStockMovementsByProductId(int $id): Collection
+    {
+        return $this->stockMovementsEntryRepository->getByProductId($id);
     }
 
     public function getAllWithFilters(array $data): Collection

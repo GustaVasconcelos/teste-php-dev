@@ -38,4 +38,9 @@ class StockMovementsExitRepository extends BaseRepository implements StockMoveme
         ->select('stock_movements_exits.*') 
         ->get();    
     }
+
+    public function getByProductId(int $id): Collection
+    {
+        return $this->model->where('product_id', $id)->orderBy('created_at', 'desc')->get();
+    }
 }

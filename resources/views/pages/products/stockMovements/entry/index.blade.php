@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Movimentos de Estoque | Entrada')
+@section('title', 'Produtos | Movimentos de Estoque | Entrada')
 
 @section('page-specific-head')
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
@@ -9,45 +9,15 @@
 @section('content')
 <div class="container-fluid">
     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 text-dark">
-        Movimentos de estoque <i class="fas fa-chevron-right mx-1"></i> Entrada
+        Produtos <i class="fas fa-chevron-right mx-1"></i> Movimentos de estoque <i class="fas fa-chevron-right mx-1"></i> Entrada
     </div>
-
-    <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
-        <div class="font-weight-bold text-primary text-uppercase mb-1 text-dark d-flex">
-            Filtrar resultados
-        </div>
-        <div>
-            <a href="{{ route('stockMovements.entry.create') }}" class="btn btn-golden-rounded fw-semibold mx-2">Nova Entrada</a>
-        </div>
-    </div>
-
-    <form class="p-3 mt-2 rounded shadow-sm mb-2 bg-white" action="{{ route('stockMovements.entry.index') }}" method="GET">
-        @include('includes.alerts')
-
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="product-name" class="form-label text-dark font-weight-bold">Nome do Produto:</label>
-                <input type="text" id="product-name" class="form-control" name="productName" placeholder="Digite o nome do produto">
-            </div>
-            <div class="col-6 mb-3">
-                <label for="date" class="form-label text-dark font-weight-bold">Data:</label>
-                <input type="date" id="date" class="form-control" name="date">
-            </div>
-        </div>
-        
-        <div class="d-flex flex-wrap gap-2 mt-2">
-            <button type="submit" class="btn btn-golden-rounded fw-semibold">
-                Filtrar
-            </button>
-            <a href="{{ route('stockMovements.entry.index') }}" class="btn btn-golden-rounded fw-semibold mx-2">
-                Limpar filtros
-            </a>
-        </div>
-    </form>
 
     <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
         <div class="font-weight-bold text-primary text-uppercase mb-1 text-dark d-flex">
             Lista de Movimentos de Entrada de Estoque
+        </div>
+        <div>
+            <a href="{{ route('products.index') }}" class="btn btn-golden-rounded fw-semibold mx-2">Voltar</a>
         </div>
     </div>
 
@@ -77,7 +47,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6" class="text-center">Não há movimentos de entrada de estoque cadastrados.</td>
+                        <td colspan="6" class="text-center">Não há movimentos de entrada de estoque cadastrados para este produto.</td>
                     </tr>
                 @endif
             </tbody>

@@ -33,6 +33,11 @@ Route::group(['middleware' => ['auth.check']], function () {
             Route::get('/{id}', [ProductController::class, 'edit'])->name('edit');
             Route::put('/{id}', [ProductController::class, 'update'])->name('update');
         });
+
+        Route::prefix('/movimentos-estoque')->as('stockMovements.')->group(function () {
+            Route::get('/entrada/{id}', [ProductController::class, 'showProductStockMovementsEntry'])->name('showProductStockMovementsEntry');
+            Route::get('/saida/{id}', [ProductController::class, 'showProductStockMovementsExit'])->name('showProductStockMovementsExit');
+        });
     });
 
     Route::prefix('/movimentos-estoque')->as('stockMovements.')->group(function () {
